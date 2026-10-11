@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知知 | 全网口碑综合</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="topbar">
+    <button id="favEntry" class="fav-entry" title="我的收藏 / 不喜欢">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.06 6.6.8-4.85 4.53 1.27 6.55L12 17.9l-5.92 2.54 1.27-6.55L2.5 9.36l6.6-.8L12 2.5z"/></svg>
+      <span>我的收藏</span>
+      <span class="fav-badge" id="favBadge">0</span>
+    </button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-title">
+      <span class="dot-live"></span>
+      <h1>知知</h1>
+      <span class="stars">✧ ✧</span>
+    </div>
+    <div class="hero-sub">全网口碑综合 · 还原真实体验</div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="chat">具体产品</button>
+    <button class="tab" data-tab="need">购买需求</button>
+    <button class="tab" data-tab="compare">想做的比较</button>
+  </nav>
+
+  <section class="card chat-card">
+    <div class="glow"></div>
+    <div class="msgs" id="chat"></div>
+    <div class="composer">
+      <div class="input-wrap">
+        <input id="input" type="text" placeholder="输入产品名（如：绿豆洗面奶 / 修丽可AGE面霜），或说肤质与需求…" autocomplete="off">
+        <span class="counter" id="counter">0 / 1200 字符</span>
+      </div>
+      <div class="composer-actions">
+        <button id="cmpBtn" class="cmp-btn" hidden>多款产品对比</button>
+        <button id="send" class="submit-btn">帮我挑挑 <span class="spark">✦</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare" id="compare" hidden>
+    <div class="cmp-hero">
+      <div class="cat-kicker">HEAD-TO-HEAD</div>
+      <h2 class="cmp-title">想做的比较</h2>
+      <p class="cmp-sub">输入一个品类（比如「面霜」），知知列出库里所有相关的产品，你随手指两个，就这两个进行对比。</p>
+    </div>
+
+    <div class="cmp-search card">
+      <div class="glow"></div>
+      <div class="cmp-search-row">
+        <input id="cmpInput" type="text" placeholder="输入品类或产品名，如：面霜 / 精华 / 防晒…" autocomplete="off">
+        <button id="cmpSearch" class="submit-btn">搜索 <span class="spark">✦</span></button>
+      </div>
+      <div class="cmp-hist">
+        <span class="cmp-hist-label">搜过的</span>
+        <div class="chips" id="cmpHistory"></div>
+      </div>
+      <div class="cmp-hist">
+        <span class="cmp-hist-label">热门</span>
+        <div class="chips" id="cmpHot"></div>
+      </div>
+    </div>
+
+    <div class="cmp-pick" id="cmpPick" hidden>
+      <div class="cmp-pick-head">
+        <span id="cmpPickCount"></span>
+        <span class="cmp-pick-hint">点两下选中要对比的产品（最多 2 个）</span>
+      </div>
+      <div class="grid" id="cmpPickGrid"></div>
+    </div>
+
+    <div class="cmp-tray" id="cmpTray" hidden>
+      <div class="cmp-tray-inner">
+        <div class="cmp-tray-slots" id="cmpTraySlots"></div>
+        <button id="cmpGo" class="submit-btn" disabled>开始对比 <span class="spark">✦</span></button>
+      </div>
+    </div>
+
+    <div class="cmp-result" id="cmpResult"></div>
+  </section>
+
+  <section class="need-panel card" id="needPanel" hidden>
+    <div class="glow"></div>
+    <div class="need-head">
+      <div class="cat-kicker">SHOPPING BRIEF</div>
+      <h3>说说你的购买需求</h3>
+      <p class="need-sub">填一下预算、肤质和想要的产品类型，知知从库里帮你挑匹配的。</p>
+    </div>
+    <div class="need-form">
+      <div class="field">
+        <label>预算价位（元）</label>
+        <div class="range-row">
+          <input id="needMin" type="number" min="0" step="10" placeholder="最低">
+          <span>—</span>
+          <input id="needMax" type="number" min="0" step="10" placeholder="最高">
+        </div>
+        <div class="chips" id="priceChips">
+          <button data-min="0" data-max="100">100 元内</button>
+          <button data-min="100" data-max="300">100–300</button>
+          <button data-min="300" data-max="600">300–600</button>
+          <button data-min="600" data-max="">600+</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>你的肤质</label>
+        <div class="chips" id="skinChips">
+          <button data-v="油皮">油皮 / 混油</button>
+          <button data-v="混干">混干皮</button>
+          <button data-v="干皮">干皮</button>
+          <button data-v="敏感">敏感肌</button>
+          <button data-v="中性">中性 / 混合</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>想要的产品类型</label>
+        <div class="chips" id="typeChips"></div>
+      </div>
+      <div class="field">
+        <label>补充需求（可选）</label>
+        <input id="needExtra" type="text" placeholder="比如：想要清爽不闷、要能修护屏障、不要太贵…">
+      </div>
+      <button id="needGo" class="submit-btn">帮我挑挑 <span class="spark">✦</span></button>
+    </div>
+    <div class="need-results" id="needResults"></div>
+  </section>
+
+  <section class="detail-panel card" id="detailPanel" hidden>
+    <div class="glow"></div>
+    <button class="detail-back" id="detailBack">← 返回匹配列表</button>
+    <div class="detail-body" id="detailBody"></div>
+  </section>
+
+
+  <section class="fav-page card" id="favPage" hidden>
+    <div class="glow"></div>
+    <div class="fav-head">
+      <div>
+        <div class="cat-kicker">MY LISTS</div>
+        <h2 class="fav-title">我的收藏与不喜欢</h2>
+        <p class="fav-sub">这里按品类查看你收藏的、以及标记为不喜欢的产品。点右上角 × 即可取消。</p>
+      </div>
+      <button class="detail-back" id="favClose">← 返回</button>
+    </div>
+
+    <div class="fav-tabs">
+      <button class="fav-tab active" data-favtab="fav">收藏的 <span id="favCount">0</span></button>
+      <button class="fav-tab" data-favtab="dis">不喜欢的 <span id="disCount">0</span></button>
+    </div>
+
+    <div class="fav-catbar" id="favCatBar"></div>
+    <div class="fav-body" id="favBody"></div>
+  </section>
+
+
+  <section class="categories">
+    <div class="cat-head">
+      <div>
+        <div class="cat-kicker">ALL CATEGORIES</div>
+        <h2>全部品类</h2>
+        <div class="cat-sub">Explore by category · 共 <span id="prodCount">0</span> 款真实产品</div>
+      </div>
+      <div class="cat-tabs" id="catTabs"></div>
+    </div>
+    <div class="grid" id="catgrid"></div>
+  </section>
+
+  <footer class="foot"></footer>
+</div>
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

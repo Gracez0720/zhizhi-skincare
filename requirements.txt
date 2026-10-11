@@ -1,0 +1,8 @@
+# 本项目前端为纯静态站点（HTML/CSS/JS），运行页面本身无需任何依赖。
+# 以下依赖仅在需要「重新生成数据 products.js / images/」时使用。
+
+# 数据处理脚本 build_data.py 使用 Python 标准库（sqlite3 / csv / json / shutil 等），
+# 无需额外第三方包。
+
+# 如需在此环境外安装 git 或使用 Python 打包/发布相关工具，可参考：
+# dulwich>=0.21.0   # 纯 Python git 实现（可选，用于无 git 环境）

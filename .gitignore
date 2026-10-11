@@ -1,0 +1,21 @@
+# dependencies
+__pycache__/
+*.pyc
+.cache/
+.logs/
+.venv/
+venv/
+
+# raw data (large, local only)
+upload/
+
+# local media / screenshots
+media/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
